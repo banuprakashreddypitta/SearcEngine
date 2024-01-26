@@ -1,17 +1,18 @@
+// BasePage.java
 package pages;
 
-
-
 import org.openqa.selenium.WebDriver;
-import utils.DriverMgr;
 
-
-public class BasePage {
+public abstract class BasePage {
 
     protected WebDriver driver;
 
-    public BasePage() {
-        this.driver = DriverMgr.getDriver();
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
     }
-}
 
+    // Abstract methods to be implemented by subclasses
+    public abstract void open();
+    public abstract void search(String searchTerm);
+    public abstract String getFirstResultText();
+}
