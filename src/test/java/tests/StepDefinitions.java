@@ -4,45 +4,33 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import org.testng.Assert;
-import pages.BaseHomePage;
+import interfaces.SearchEnginePage;
 import pages.GoogleHomePage;
 import pages.YahooHomePage;
 import pages.BingHomePage;
+import utils.DriverMgr;
 
 public class StepDefinitions {
 
-    private BaseHomePage currentHomePage;
-//    @Given("I am on the {string} search engine homepage")
-//    public void iAmOnTheSearchEngineHomepage(String searchEngine) {
-//      //copied
-//    }
-
-//    @When("I search for {string}")
-//    public void iSearchFor(String searchTerm) {
-//
-//    }
-
-//    @Then("the first result should contain {string}")
-//    public void theFirstResultShouldContain(String expectedText) {
-//
-//    }
+    private SearchEnginePage currentHomePage;
 
     @Given("I am on the {string} search engine homepage")
     public void i_am_on_the_search_engine_homepage(String searchEngine) {
         switch (searchEngine.toLowerCase()) {
             case "google":
-                currentHomePage = new GoogleHomePage();
+                currentHomePage = new GoogleHomePage(DriverMgr.getDriver());
                 break;
             case "yahoo":
-                currentHomePage = new YahooHomePage();
+                currentHomePage = new YahooHomePage(DriverMgr.getDriver());
                 break;
             case "bing":
-                currentHomePage = new BingHomePage();
+                currentHomePage = new BingHomePage(DriverMgr.getDriver());
                 break;
             default:
                 throw new IllegalArgumentException("Invalid search engine: " + searchEngine);
         }
 
+        currentHomePage.setDriver(DriverMgr.getDriver());
         currentHomePage.open();
     }
 
@@ -56,5 +44,4 @@ public class StepDefinitions {
         String actualText = currentHomePage.getFirstResultText();
         Assert.assertTrue(actualText.contains(expectedText), "Expected text not found in the first result.");
     }
-
 }

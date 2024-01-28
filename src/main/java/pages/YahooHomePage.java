@@ -1,15 +1,16 @@
 package pages;
 
+import interfaces.SearchEnginePage;
 import org.openqa.selenium.By;
-import utils.DriverMgr;
+import org.openqa.selenium.WebDriver;
 
-public class YahooHomePage extends BasePage {
+public class YahooHomePage extends BasePage implements SearchEnginePage {
 
     private static final By SEARCH_INPUT = By.name("p");
     private static final By FIRST_RESULT = By.cssSelector(".ac-algo");
 
-    public YahooHomePage() {
-        super(DriverMgr.getDriver());
+    public YahooHomePage(WebDriver driver) {
+        super(driver);
     }
 
     @Override
@@ -26,5 +27,10 @@ public class YahooHomePage extends BasePage {
     @Override
     public String getFirstResultText() {
         return driver.findElement(FIRST_RESULT).getText();
+    }
+
+    @Override
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
     }
 }

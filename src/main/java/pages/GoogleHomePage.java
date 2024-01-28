@@ -1,15 +1,22 @@
 package pages;
 
+import interfaces.SearchEnginePage;
 import org.openqa.selenium.By;
-import utils.DriverMgr;
+import org.openqa.selenium.WebDriver;
 
-public class GoogleHomePage extends BasePage {
+public class GoogleHomePage implements SearchEnginePage {
 
+    private WebDriver driver;
     private static final By SEARCH_INPUT = By.name("q");
     private static final By FIRST_RESULT = By.cssSelector("h3");
 
-    public GoogleHomePage() {
-        super(DriverMgr.getDriver());
+    public GoogleHomePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    @Override
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
     }
 
     @Override
