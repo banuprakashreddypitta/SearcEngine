@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,48 +24,14 @@ public class SearchTests {
 
     @BeforeMethod
     public void setUp() {
+
         String chromedriverPath = null;
-//        String chromedriverPath = "/Users/banuprakashreddy/IdeaProjects/SearcEngine/src/Driver/chromedriver";
 
-        //            String srcDirectory = new File("src").getCanonicalPath();
-
-//            String chromeDriverRelativePath = "ChromeDriver/chromedriver";
-//
-//            chromeDriverPath = srcDirectory + File.separator + chromeDriverRelativePath;
-
-//        WebDriverManager.chromedriver().setup();
-//
-//        // Create a new instance of the Chrome driver
-//        WebDriver driver = new ChromeDriver();
         chromedriverPath = "/Users/banuprakashreddy/IdeaProjects/SearcEngine/src/Driver/chromedriver-1";
-//
-//        //chromedriverPath = "src/ChromeDriver/chromedriver";
-//
-//        System.out.println("Canonical Path to ChromeDriver: " + chromedriverPath);
-//        // Set up your WebDriver instance here
-//        ChromeOptions options = new ChromeOptions();
 
-//        options.setExperimentalOption("debuggerAddress", "localhost:9222");
-
-//        options.addArguments("--remote-debugging-port=9222");
-//        options.addArguments("--user-data-dir=/Users/banuprakashreddy/Documents/ChromeDi");
-//
-//        options.addArguments("--enable-logging", "--v=1");
-
-//        System.setProperty("webdriver.chrome.driver", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
 
         System.setProperty("webdriver.chrome.driver", chromedriverPath);
 
-//        System.setProperty("webdriver.chrome.logfile", "/Users/banuprakashreddy/Documents/ChromeDi");
-
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.setHeadless(true);
-//        WebDriver driver = new FirefoxDriver(options);
-//        System.setProperty("webdriver.gecko.driver", "/Users/banuprakashreddy/IdeaProjects/SearcEngine/src/Driver/geckodriver");
-
-//        WebDriverManager.firefoxdriver().setup();
-//         driver = new FirefoxDriver();
-//        driver = new ChromeDriver(options);
         driver = new ChromeDriver();
     }
 
@@ -75,8 +42,7 @@ public class SearchTests {
         googleHomePage.open();
         googleHomePage.search("Selenium");
         String result = googleHomePage.getFirstResultText();
-        System.out.println("Google Result: " + result);
-        // Add assertions as needed
+        Assert.assertTrue(result.contains("Selenium"), "Expected result to contain 'Selenium'");
     }
 
     @Test
@@ -87,7 +53,7 @@ public class SearchTests {
         yahooHomePage.search("WebDriver");
         String result = yahooHomePage.getFirstResultText();
         System.out.println("Yahoo Result: " + result);
-        // Add assertions as needed
+        Assert.assertTrue(result.contains("WebDriver"), "Expected result to contain 'WebDriver'");
     }
 
     @Test
@@ -98,12 +64,11 @@ public class SearchTests {
         bingHomePage.search("Automation Testing");
         String result = bingHomePage.getFirstResultText();
         System.out.println("Bing Result: " + result);
-        // Add assertions as needed
+        Assert.assertTrue(result.contains("Automation Testing"), "Expected result to contain 'Automation Testing'");
     }
 
     @AfterMethod
     public void tearDown() {
-        // Close the browser or perform cleanup here
         if (driver != null) {
             driver.quit();
         }
